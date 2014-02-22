@@ -4,6 +4,8 @@ class CreateInventoryItem < ActiveRecord::Migration
       t.string :title
       t.decimal :price
       t.integer :address_id
+
+      t.timestamps
     end
   end
 end
