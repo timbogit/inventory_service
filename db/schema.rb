@@ -13,17 +13,17 @@
 
 ActiveRecord::Schema.define(version: 20140222171559) do
 
-  create_table "inventory_item_tags", force: true do |t|
-    t.integer  "inventory_item_id"
-    t.integer  "tag_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "inventory_items", force: true do |t|
     t.string   "title"
     t.decimal  "price",      precision: 10, scale: 0
     t.integer  "address_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "inventory_items_tags", force: true do |t|
+    t.integer  "inventory_item_id"
+    t.integer  "tag_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
