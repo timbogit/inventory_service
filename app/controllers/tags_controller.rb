@@ -1,8 +1,8 @@
 class TagsController < ApplicationController
   # Show a single tag
   def show
-    not_found_with_max_age(caching_time) and return unless (@tag = Tag.find(params[:id]))
-    Rails.logger.debug "Inventory Item with ID #{@tag.id} is #{@tag.inspect}"
+    not_found_with_max_age(caching_time) and return unless (@tag = Tag.find_by_name(params[:id]))
+    Rails.logger.debug "Inventory Item with name #{@tag.name} is #{@tag.inspect}"
 
     render_if_stale(@tag, last_modified: @tag.updated_at.utc, etag: @tag) do |tag_presenter|
       tag_presenter.hash
