@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Core
-gem 'rails', '4.0.3'
+gem 'rails', '4.0.4'
 gem 'mysql2'
 gem 'protected_attributes'
 
@@ -26,4 +26,3 @@ end
 group :production do
   gem 'newrelic_rpm'
 end
-

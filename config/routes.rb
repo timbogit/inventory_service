@@ -53,4 +53,9 @@ InventoryService::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  scope 'api' do
+    scope 'v:version' do
+      resources :inventory_items
+    end
+  end
 end
