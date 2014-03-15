@@ -1,29 +1,29 @@
-class InventoryItemsController < ApplicationController
-  # Show a single inventory_item
+class TagsController < ApplicationController
+  # Show a single tag
   def show
-    not_found_with_max_age(caching_time) and return unless (@item = InventoryItem.find(params[:id]))
-    Rails.logger.debug "Inventory Item with ID #{@item.id} is #{@item.inspect}"
+    not_found_with_max_age(caching_time) and return unless (@tag = Tag.find(params[:id]))
+    Rails.logger.debug "Inventory Item with ID #{@tag.id} is #{@tag.inspect}"
 
-    render_if_stale(@item, last_modified: @item.updated_at.utc, etag: @item) do |item_presenter|
-      item_presenter.hash
+    render_if_stale(@tag, last_modified: @tag.updated_at.utc, etag: @tag) do |tag_presenter|
+      tag_presenter.hash
     end
     # explicitly setting the Cache-Control response header to public and max-age, to make the response cachable by proxy caches
     expires_in caching_time, public: true
   end
 
-  # List all inventory_items
+  # List all tags
   def index
-    all_items = InventoryItem.all
-    return json_response([]) unless newest_item = all_items.sort_by(&:updated_at).first
-    Rails.logger.info "newest_item is #{newest_item.inspect}"
-    render_if_stale(all_items, last_modified: newest_item.updated_at.utc, etag: newest_item) do |item_presenters|
-      item_presenters.map(&:hash)
+    all_tags = Tag.all
+    return json_response([]) unless newest_tag = all_tags.sort_by(&:updated_at).first
+    Rails.logger.info "newest_tag is #{newest_tag.inspect}"
+    render_if_stale(all_tags, last_modified: newest_tag.updated_at.utc, etag: newest_tag) do |tag_presenters|
+      tag_presenters.map(&:hash)
     end
     # explicitly setting the Cache-Control response header to public and max-age, to make the response cachable by proxy caches
     expires_in caching_time, public: true
   end
 
-  # Create a new inventory_item.
+  # Create a new tag.
   def create
     # # validate the entity based on the incoming params hash
     # entity_hash = entity_hash_class.new(params_for_entity)
@@ -48,12 +48,12 @@ class InventoryItemsController < ApplicationController
     # end
   end
 
-  # Update an existing inventory_item.
+  # Update an existing tag.
   def update
     # TODO
   end
 
-  # Delete an inventory item
+  # Delete an tag
   def destroy
     # TODO
   end

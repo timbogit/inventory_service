@@ -56,6 +56,7 @@ InventoryService::Application.routes.draw do
   scope 'api' do
     scope 'v:version' do
       resources :inventory_items
+      resources :tags
     end
   end
 end
