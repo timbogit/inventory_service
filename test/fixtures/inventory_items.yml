@@ -1,0 +1,11 @@
+burger:
+  title: "Mike's Famous Pork on Pork"
+  price: 5.99
+  address_id: 1
+  tags: bacon, burger, collectible
+
+laptop:
+  title: "Original PowerBook 100"
+  price: 6500.00
+  address_id: 1
+  tags: computer, collectible

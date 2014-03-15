@@ -37,7 +37,6 @@ class ApplicationController < ActionController::Base
 
       entity_array = Array(entities)
       return not_found_with_max_age(caching_time) unless presenter_class = find_presenter(entity_array, params[:version])
-      return head(:not_found) if version_mismatch?(entity_array, presenter_class)
 
       render_presenter(entities, presenter_class, &blk)
     end
@@ -48,10 +47,6 @@ class ApplicationController < ActionController::Base
 
     def presentable_class(entities)
       entities.first.class
-    end
-
-    def version_mismatch?(entities, presenter_class)
-      entities.map(&:published_version).min < presenter_class.version_number
     end
 
     def render_presenter(entities, presenter_class, &blk)

@@ -14,7 +14,7 @@ class InventoryItemsController < ApplicationController
   # List all inventory_items
   def index
     all_items = InventoryItem.all
-    json_response([]) and return unless newest_item = all_items.sort(&:updated_at).first
+    json_response([]) and return unless newest_item = all_items.sort_by(&:updated_at).first
     Rails.logger.info "newest_item is #{newest_item.inspect}"
     render_if_stale(all_items, last_modified: newest_item.updated_at.utc, etag: newest_item) do |item_presenters|
       item_presenters.map(&:hash)
