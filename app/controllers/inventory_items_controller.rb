@@ -23,29 +23,22 @@ class InventoryItemsController < ApplicationController
     expires_in caching_time, public: true
   end
 
-  # Create a new inventory_item.
+  # Create a new inventory_item (with associated tags).
+  # Example:
+  #  ` curl -v -H "Content-type: application/json" -X POST 'http://localhost:3000/api/v1/inventory_items.json' \
+  #         -d '{"price":5.88, "title":"Bens stickers", "address_id": 1234, "tags": ["collectible", "sticky"]}'`
   def create
-    # # validate the entity based on the incoming params hash
-    # entity_hash = entity_hash_class.new(params_for_entity)
-    # render(json: entity_hash.errors, status: :unprocessable_entity) and return unless entity_hash.valid?
-    # # update an existing entity
-    # if @entity = entity_class.find_by_key(key_for_entity(id_from_params))
-    #   if @entity.update_collection(remove_root_element_from_json_string(entity_class.name.downcase, request.body.read), params[:version])
-    #     Rails.logger.debug "Updated #{entity_class} is #{@entity.inspect}"
-    #     head :no_content
-    #   else
-    #     Rails.logger.error "cannot update because there were errors saving #{@entity.attributes.inspect} ... #{@entity.errors.to_hash}"
-    #     render(json: @entity.errors, status: :unprocessable_entity) and return
-    #   end
-    # else # create a new entity
-    #   @entity = entity_class.init_from_params(remove_root_element_from_json_string(entity_class.name.downcase, request.body.read), params[:version], key_for_entity(id_from_params))
-    #   if @entity.save
-    #     render text: '{"success": true}', status: :created, location: entity_path(params[:version], @entity.data_id)
-    #   else
-    #     Rails.logger.error "cannot create because there were errors saving #{@entity.attributes.inspect} ... #{@entity.errors.to_hash}"
-    #     render(json: @entity.errors, status: :unprocessable_entity) and return
-    #   end
-    # end
+    item = InventoryItem.new(params.slice(:title, :price, :address_id))
+    item.tags = params[:tags].map do |tag|
+      Rails.logger.info "Tag is #{tag}"
+      Tag.find_or_create_by(name: tag)
+    end
+    if item.save
+      render text: '{"success": true}', status: :created, location: inventory_item_path(params[:version], item.id)
+    else
+      Rails.logger.error "cannot create because there were errors saving #{item.attributes.inspect} ... #{item.errors.to_hash}"
+      render(json: item.errors, status: :unprocessable_entity)
+    end
   end
 
   # Update an existing inventory_item.
