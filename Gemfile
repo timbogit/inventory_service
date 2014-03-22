@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 # Core
 gem 'rails', '4.0.4'
-gem 'mysql2'
+gem 'pg'
 gem 'protected_attributes'
 
 # App
@@ -26,3 +26,5 @@ end
 group :production do
   gem 'newrelic_rpm'
 end
+
+ruby "2.1.1"

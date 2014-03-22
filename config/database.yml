@@ -1,23 +1,21 @@
 development:
-  adapter: mysql2
-  encoding: utf8
+  adapter: postgresql
+  encoding: unicode
   database: inventory_service_development
-  username: root
+  pool: 5
   password:
   host: localhost
 
 test:
-  adapter: mysql2
-  encoding: utf8
+  adapter: postgresql
+  encoding: unicode
   database: inventory_service_test
-  username: root
+  pool: 5
   password:
-  host: localhost
 
 production:
-  adapter: mysql2
-  encoding: utf8
+  adapter: postgresql
+  encoding: unicode
   database: inventory_service_production
-  username: root
+  pool: 5
   password:
-  host: localhost
