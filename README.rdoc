@@ -12,13 +12,13 @@ workshop.
 
 * Configuration
   * this service runs in heroku, at: inventory-service-development.herokuapp.com
-  * one service endpoitn is: http://inventory-service-development.herokuapp.com/api/v1/inventory_items
+  * one service endpoint is: http://inventory-service-development.herokuapp.com/api/v1/inventory_items
 
 * Database creation
   `bundle exec rake db:create`
 
 * Database initialization
-  `bundle exec rake db:create`
+  `bundle exec rake db:migrate`
   `bundle exec rake db:fixtures:load`
 
 * How to run the test suite
