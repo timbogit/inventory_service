@@ -1,25 +1,36 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is the inventory item service for the Abril Pro Ruby 2014
+workshop.
 
-Things you may want to cover:
-
-* Ruby version
+* Ruby & Rails versions
+  * Ruby 2.1.1
+  * Rails 4.0.4
 
 * System dependencies
+  * PostgreSQL
 
 * Configuration
+  * this service runs in heroku, at: inventory-service-development.herokuapp.com
+  * one service endpoitn is: http://inventory-service-development.herokuapp.com/api/v1/inventory_items
 
 * Database creation
+  `bundle exec rake db:create`
 
 * Database initialization
+  `bundle exec rake db:create`
+  `bundle exec rake db:fixtures:load`
 
 * How to run the test suite
 
 * Services (job queues, cache servers, search engines, etc.)
 
 * Deployment instructions
+  * general instructions here: https://devcenter.heroku.com/articles/getting-started-with-rails4
+  * best way to push: `git push heroku master`
+  * looking at logs: `heroku logs`
+  * running rake tasks on heroku: `heroku run rake -T`
+  * running a rails console on heroku: `heroku run rails console`
 
 * ...
 
