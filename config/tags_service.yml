@@ -1,0 +1,11 @@
+development:
+  host: tags-service-development.herokuapp
+  port: 80
+
+test:
+  host: tags-service-development.herokuapp
+  port: 80
+
+production:
+  host: tags-service-development.herokuapp
+  port: 80
