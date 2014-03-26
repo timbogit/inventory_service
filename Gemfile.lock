@@ -44,6 +44,7 @@ GEM
     foreman (0.63.0)
       dotenv (>= 0.7)
       thor (>= 0.13.6)
+    hashie (2.0.5)
     hike (1.2.3)
     i18n (0.6.9)
     mail (2.5.4)
@@ -116,6 +117,7 @@ PLATFORMS
 DEPENDENCIES
   debugger
   foreman
+  hashie
   minitest-rails
   mocha
   newrelic_rpm

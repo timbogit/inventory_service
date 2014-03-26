@@ -12,7 +12,9 @@ class RemoteTag
 
     def find_by_name(name)
       raise "RemoteTag.host needs to be set" unless host
-      JSON.parse(Typhoeus.get("#{host}/api/v#{api_version}/tags/#{name}").body)
+      Hashie::Mash.new(
+          JSON.parse(Typhoeus.get("#{host}/api/v#{api_version}/tags/#{name}").body)
+        )
     end
 
     def find_by_inventory_item_ids(ids)
@@ -20,12 +22,12 @@ class RemoteTag
       raise "RemoteTag.host needs to be set" unless host
       requests = []
       ids.each do |id|
-        requests << Typhoeus::Request.new("#{host}/api/v#{api_version}/tags?item_id=#{id}")
+        requests << Typhoeus::Request.new("#{host}/api/v#{api_version}/tags?item_id=#{id}", followlocation: true)
       end
       requests.each { |r| hydra.queue(r) }
       hydra.run
       requests.keep_if{ |req| req.response.success? }
-      requests.map {|req| JSON.parse(req.response.body)}.flatten(1)
+      requests.map {|req| JSON.parse(req.response.body)}.flatten(1).map {|hsh| Hashie::Mash.new(hsh)}
     end
 
     private

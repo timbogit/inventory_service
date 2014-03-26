@@ -8,6 +8,7 @@ gem 'protected_attributes'
 # App
 gem 'oj'
 gem 'typhoeus'
+gem 'hashie'
 
 group :test do
   gem "turn"
