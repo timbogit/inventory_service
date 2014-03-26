@@ -7,6 +7,7 @@ gem 'protected_attributes'
 
 # App
 gem 'oj'
+gem 'typhoeus'
 
 group :test do
   gem "turn"
