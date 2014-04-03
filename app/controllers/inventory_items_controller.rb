@@ -1,7 +1,8 @@
 class InventoryItemsController < ApplicationController
+  before_action :find_item, except: [:create, :index]
+
   # Show a single inventory_item
   def show
-    not_found_with_max_age(caching_time) and return unless (@item = InventoryItem.find(params[:id]))
     Rails.logger.debug "Inventory Item with ID #{@item.id} is #{@item.inspect}"
 
     render_if_stale(@item, last_modified: @item.updated_at.utc, etag: @item) do |item_presenter|
@@ -26,13 +27,9 @@ class InventoryItemsController < ApplicationController
   # Create a new inventory_item (with associated tags).
   # Example:
   #  ` curl -v -H "Content-type: application/json" -X POST 'http://localhost:3000/api/v1/inventory_items.json' \
-  #         -d '{"price":5.88, "title":"Bens stickers", "address_id": 1234, "tags": ["collectible", "sticky"]}'`
+  #         -d '{"price":5.88, "title":"Bens stickers", "address_id": 1234}'`
   def create
     item = InventoryItem.new(params.slice(:title, :price, :address_id))
-    item.tags = params[:tags].map do |tag|
-      Rails.logger.info "Tag is #{tag}"
-      Tag.find_or_create_by(name: tag)
-    end
     if item.save
       render text: '{"success": true}', status: :created, location: inventory_item_path(params[:version], item.id)
     else
@@ -42,16 +39,35 @@ class InventoryItemsController < ApplicationController
   end
 
   # Update an existing inventory_item.
+  # Example:
+  #  `curl -v -H "Content-type: application/json" -X PUT 'http://localhost:3000/api/v1/inventory_items/1.json' \
+  #         -d '{"price":5.88, "title":"Bens stickers", "address_id": 1234}'`
   def update
-    # TODO
+    if @item.update(params.slice(:title, :price, :address_id))
+      render text: '{"success": true}', status: :no_content, location: inventory_item_path(params[:version], @item.id)
+    else
+      Rails.logger.error "cannot update inventory item because there were errors saving #{@item.attributes.inspect} ... #{@item.errors.to_hash}"
+      render(json: @item.errors, status: :unprocessable_entity)
+    end
   end
 
   # Delete an inventory item
+  # Example:
+  #  `curl -v -H "Content-type: application/json" -X DELETE 'http://localhost:3000/api/v1/inventory_items/1.json'`
   def destroy
-    # TODO
+    if @item.destroy
+      render text: '{"success": true}', status: :no_content, location: inventory_item_path(params[:version], @item.id)
+    else
+      Rails.logger.error "cannot destroy inventory item because there were errors deleting the item #{@item.attributes.inspect} ... #{@item.errors.to_hash}"
+      render(json: @item.errors, status: :bad_request)
+    end
   end
 
-  # private
+  private
+
+  def find_item
+    not_found_with_max_age(caching_time) and return unless (@item = InventoryItem.find_by(params.slice(:id)))
+  end
 
   # # Extract the object's upstream (e.g. city ID or deal ID) from the data hash
   # # parameter

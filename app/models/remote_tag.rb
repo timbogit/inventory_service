@@ -30,6 +30,21 @@ class RemoteTag
       requests.map {|req| JSON.parse(req.response.body)}.flatten(1).map {|hsh| Hashie::Mash.new(hsh)}
     end
 
+    def destroy_tags_for_inventory_item (item_id, tag_names = [])
+      return false unless item_id
+      return true if tag_names && tag_names.size == 0
+      raise "RemoteTag.host needs to be set" unless host
+
+      requests = []
+      tag_names.each do |tag_name|
+        requests << Typhoeus::Request.new("#{host}/api/v#{api_version}/tags/#{tag_name}/tagged_items/#{item_id}", method: :delete, followlocation: true)
+      end
+      requests.each { |r| hydra.queue(r) }
+      hydra.run
+      requests.keep_if{ |req| req.response.code == 204 }
+      return requests.size > 0
+    end
+
     private
     def hydra
       @hydra ||= begin

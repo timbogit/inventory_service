@@ -1,4 +1,5 @@
 class Presenter
+
   delegate :to_json, :to => :hash
 
   attr_accessor :hash, :version
