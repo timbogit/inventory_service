@@ -2,6 +2,9 @@ class InventoryItemsController < ApplicationController
   before_action :find_item, except: [:create, :index]
 
   # Show a single inventory_item
+  # List all inventory_items
+  # Example:
+  #  ` curl -v -H "Content-type: application/json" 'http://localhost:3000/api/v1/inventory_items/1.json' 
   def show
     Rails.logger.debug "Inventory Item with ID #{@item.id} is #{@item.inspect}"
 
@@ -13,6 +16,8 @@ class InventoryItemsController < ApplicationController
   end
 
   # List all inventory_items
+  # Example:
+  #  ` curl -v -H "Content-type: application/json" 'http://localhost:3000/api/v1/inventory_items.json'
   def index
     all_items = InventoryItem.all
     return json_response([]) unless newest_item = all_items.sort_by(&:updated_at).first

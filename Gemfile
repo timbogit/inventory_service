@@ -22,6 +22,7 @@ end
 
 group :development do
   gem 'foreman'
+  gem 'swagger-docs'
   gem 'perftools.rb'
 end
 
