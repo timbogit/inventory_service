@@ -1,10 +1,10 @@
 {
   "apiVersion": "1.0",
   "swaggerVersion": "1.2",
-  "basePath": "tags-service-development.herokuapp.com/api/v1/",
+  "basePath": "inventory-service-development.herokuapp.com/api/v1",
   "apis": [
     {
-      "path": "api/v{version}/inventory_items.json",
+      "path": "/inventory_items.json",
       "operations": [
         {
           "summary": "Fetches all inventory items",
@@ -20,7 +20,7 @@
       ]
     },
     {
-      "path": "api/v{version}/inventory_items.json",
+      "path": "/inventory_items.json",
       "operations": [
         {
           "summary": "Creates a new inventory item",
@@ -45,7 +45,7 @@
       ]
     },
     {
-      "path": "api/v{version}/inventory_items/{id}.json",
+      "path": "/inventory_items/{id}.json",
       "operations": [
         {
           "summary": "Fetches a single inventory item",
@@ -74,7 +74,7 @@
       ]
     },
     {
-      "path": "api/v{version}/inventory_items/{id}.json",
+      "path": "/inventory_items/{id}.json",
       "operations": [
         {
           "summary": "Updates an existing inventory item",
@@ -110,7 +110,7 @@
       ]
     },
     {
-      "path": "api/v{version}/inventory_items/{id}.json",
+      "path": "/inventory_items/{id}.json",
       "operations": [
         {
           "summary": "Updates an existing inventory item",
@@ -146,7 +146,7 @@
       ]
     },
     {
-      "path": "api/v{version}/inventory_items/{id}.json",
+      "path": "/inventory_items/{id}.json",
       "operations": [
         {
           "summary": "Deletes an existing inventory item",
@@ -175,7 +175,7 @@
       ]
     }
   ],
-  "resourcePath": "inventory_items",
+  "resourcePath": "/inventory_items",
   "models": {
     "InventoryItem": {
       "id": "InventoryItem",
