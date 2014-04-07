@@ -10,6 +10,9 @@ gem 'oj'
 gem 'typhoeus'
 gem 'hashie'
 
+# Docs
+gem 'swagger-docs'
+
 group :test do
   gem "turn"
   gem "mocha", :require => false
@@ -22,7 +25,6 @@ end
 
 group :development do
   gem 'foreman'
-  gem 'swagger-docs'
   gem 'perftools.rb'
 end
 
