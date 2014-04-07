@@ -55,7 +55,7 @@ InventoryService::Application.routes.draw do
   #   end
   scope 'api' do
     scope 'v:version' do
-      resources :inventory_items
+      resources :inventory_items, except: [:new, :edit]
     end
   end
 end

@@ -3,6 +3,9 @@
   "swaggerVersion": "1.2",
   "basePath": "tags-service-development.herokuapp.com/api/v1/",
   "apis": [
-
+    {
+      "path": "inventory_items.{format}",
+      "description": "Inventory management"
+    }
   ]
 }

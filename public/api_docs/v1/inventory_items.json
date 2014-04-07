@@ -1,0 +1,204 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "tags-service-development.herokuapp.com/api/v1/",
+  "apis": [
+    {
+      "path": "api/v{version}/inventory_items.json",
+      "operations": [
+        {
+          "summary": "Fetches all inventory items",
+          "responseMessages": [
+            {
+              "code": 304,
+              "message": "The content has not changed in relation to the request ETag / If-Modified-Since"
+            }
+          ],
+          "method": "get",
+          "nickname": "InventoryItems#index"
+        }
+      ]
+    },
+    {
+      "path": "api/v{version}/inventory_items.json",
+      "operations": [
+        {
+          "summary": "Creates a new inventory item",
+          "parameters": [
+            {
+              "paramType": "form",
+              "name": "inventory_item",
+              "type": "InventoryItem",
+              "description": "First name",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 422,
+              "message": "Unprocessable Entity"
+            }
+          ],
+          "method": "post",
+          "nickname": "InventoryItems#create"
+        }
+      ]
+    },
+    {
+      "path": "api/v{version}/inventory_items/{id}.json",
+      "operations": [
+        {
+          "summary": "Fetches a single inventory item",
+          "parameters": [
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "Inventory Item Id",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 304,
+              "message": "The content has not changed in relation to the request ETag / If-Modified-Since"
+            },
+            {
+              "code": 404,
+              "message": "Not Found"
+            }
+          ],
+          "method": "get",
+          "nickname": "InventoryItems#show"
+        }
+      ]
+    },
+    {
+      "path": "api/v{version}/inventory_items/{id}.json",
+      "operations": [
+        {
+          "summary": "Updates an existing inventory item",
+          "parameters": [
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "Inventory Item Id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "inventory_item",
+              "type": "InventoryItem",
+              "description": "First name",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 404,
+              "message": "Not Found"
+            },
+            {
+              "code": 422,
+              "message": "Unprocessable Entity"
+            }
+          ],
+          "method": "patch",
+          "nickname": "InventoryItems#update"
+        }
+      ]
+    },
+    {
+      "path": "api/v{version}/inventory_items/{id}.json",
+      "operations": [
+        {
+          "summary": "Updates an existing inventory item",
+          "parameters": [
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "Inventory Item Id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "inventory_item",
+              "type": "InventoryItem",
+              "description": "First name",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 404,
+              "message": "Not Found"
+            },
+            {
+              "code": 422,
+              "message": "Unprocessable Entity"
+            }
+          ],
+          "method": "put",
+          "nickname": "InventoryItems#update"
+        }
+      ]
+    },
+    {
+      "path": "api/v{version}/inventory_items/{id}.json",
+      "operations": [
+        {
+          "summary": "Deletes an existing inventory item",
+          "parameters": [
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "Inventory Item Id",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 404,
+              "message": "Not Found"
+            },
+            {
+              "code": 422,
+              "message": "Unprocessable Entity"
+            }
+          ],
+          "method": "delete",
+          "nickname": "InventoryItems#destroy"
+        }
+      ]
+    }
+  ],
+  "resourcePath": "inventory_items",
+  "models": {
+    "InventoryItem": {
+      "id": "InventoryItem",
+      "required": [
+        "address_id",
+        "price",
+        "title"
+      ],
+      "properties": {
+        "address_id": {
+          "type": "integer",
+          "description": "ID of the location where the inventory item is sold."
+        },
+        "price": {
+          "type": "double",
+          "description": "Price of the inventory item."
+        },
+        "title": {
+          "type": "string",
+          "description": "Name of the inventory item."
+        }
+      },
+      "description": "An inventory item."
+    }
+  }
+}
