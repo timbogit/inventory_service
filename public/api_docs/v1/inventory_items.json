@@ -1,7 +1,7 @@
 {
   "apiVersion": "1.0",
   "swaggerVersion": "1.2",
-  "basePath": "inventory-service-development.herokuapp.com/api/v1",
+  "basePath": "http://inventory-service-development.herokuapp.com/api/v1",
   "apis": [
     {
       "path": "/inventory_items.json",
