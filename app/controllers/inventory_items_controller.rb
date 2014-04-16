@@ -20,7 +20,7 @@ class InventoryItemsController < ApplicationController
   #  ` curl -v -H "Content-type: application/json" 'http://localhost:3000/api/v1/inventory_items.json'
   def index
     all_items = InventoryItem.all
-    return json_response([]) unless newest_item = all_items.sort_by(&:updated_at).first
+    return json_response([]) unless newest_item = all_items.sort_by(&:updated_at).last
     Rails.logger.info "newest_item is #{newest_item.inspect}"
     render_if_stale(all_items, last_modified: newest_item.updated_at.utc, etag: newest_item) do |item_presenters|
       item_presenters.map(&:hash)
@@ -32,9 +32,9 @@ class InventoryItemsController < ApplicationController
   # Create a new inventory_item (with associated tags).
   # Example:
   #  ` curl -v -H "Content-type: application/json" -X POST 'http://localhost:3000/api/v1/inventory_items.json' \
-  #         -d '{"price":5.88, "title":"Bens stickers", "address_id": 1234}'`
+  #         -d '{"price":5.88, "title":"Bens stickers", "city_id": 1234}'`
   def create
-    item = InventoryItem.new(params.slice(:title, :price, :address_id))
+    item = InventoryItem.new(params.slice(:title, :price, :city_id))
     if item.save
       render text: '{"success": true}', status: :created, location: inventory_item_path(params[:version], item.id)
     else
@@ -46,9 +46,9 @@ class InventoryItemsController < ApplicationController
   # Update an existing inventory_item.
   # Example:
   #  `curl -v -H "Content-type: application/json" -X PUT 'http://localhost:3000/api/v1/inventory_items/1.json' \
-  #         -d '{"price":5.88, "title":"Bens stickers", "address_id": 1234}'`
+  #         -d '{"price":5.88, "title":"Bens stickers", "city_id": 1234}'`
   def update
-    if @item.update(params.slice(:title, :price, :address_id))
+    if @item.update(params.slice(:title, :price, :city_id))
       render text: '{"success": true}', status: :no_content, location: inventory_item_path(params[:version], @item.id)
     else
       Rails.logger.error "cannot update inventory item because there were errors saving #{@item.attributes.inspect} ... #{@item.errors.to_hash}"
@@ -76,11 +76,11 @@ class InventoryItemsController < ApplicationController
 
   # Below are the `swagger-docs` directives to be uncommented to regenerate the API docs
   # via `bunlde exec rake swagger:docs`
-  #  
+  #
   # swagger_controller :inventory_items, "Inventory management"
   # swagger_model :InventoryItem do
   #   description "An inventory item."
-  #   property :address_id, :integer, :required, "ID of the location where the inventory item is sold."
+  #   property :city_id, :integer, :required, "ID of the city where the inventory item is sold."
   #   property :price, :double, :required, "Price of the inventory item."
   #   property :title, :string, :required, "Name of the inventory item."
   # end

@@ -2,10 +2,10 @@ burger:
   id: 1
   title: "Mike's Famous Pork on Pork"
   price: 5.99
-  address_id: 1
+  city_id: 1
 
 laptop:
   id: 2
   title: "Original PowerBook 100"
   price: 6500.00
-  address_id: 1
+  city_id: 1

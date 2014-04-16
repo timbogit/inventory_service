@@ -180,14 +180,14 @@
     "InventoryItem": {
       "id": "InventoryItem",
       "required": [
-        "address_id",
+        "city_id",
         "price",
         "title"
       ],
       "properties": {
-        "address_id": {
+        "city_id": {
           "type": "integer",
-          "description": "ID of the location where the inventory item is sold."
+          "description": "ID of the city where the inventory item is sold."
         },
         "price": {
           "type": "double",

@@ -1,7 +1,7 @@
 class InventoryItem < ActiveRecord::Base
-  attr_accessible :title, :address_id, :price
+  attr_accessible :title, :city_id, :price
 
-  validates_presence_of :address_id, :title
+  validates_presence_of :city_id, :title
 
   after_destroy :destroy_remote_tags
 
