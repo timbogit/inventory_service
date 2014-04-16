@@ -55,7 +55,9 @@ InventoryService::Application.routes.draw do
   #   end
   scope 'api' do
     scope 'v:version' do
-      resources :inventory_items, except: [:new, :edit]
+      resources :inventory_items, except: [:new, :edit] do
+        get 'in_city/:city_id', on: :collection, action: :in_city
+      end
     end
   end
 end

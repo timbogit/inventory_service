@@ -68,6 +68,20 @@ class InventoryItemsController < ApplicationController
     end
   end
 
+  # Find inventory items filtered by a given city ID
+  # Example:
+  #  `curl -v -H "Content-type: application/json" 'http://localhost:3000/api/v1/inventory_items/in_city/1.json'`
+  def in_city
+    return json_response([]) if (city_items = InventoryItem.where(params.slice(:city_id))).blank?
+    newest_item = city_items.sort_by(&:updated_at).last
+    Rails.logger.info "newest_item is #{newest_item.inspect}"
+    render_if_stale(city_items, last_modified: newest_item.updated_at.utc, etag: newest_item) do |item_presenters|
+      item_presenters.map(&:hash)
+    end
+    # explicitly setting the Cache-Control response header to public and max-age, to make the response cachable by proxy caches
+    expires_in caching_time, public: true
+  end
+
   private
 
   def find_item

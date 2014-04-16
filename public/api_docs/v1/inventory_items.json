@@ -173,6 +173,31 @@
           "nickname": "InventoryItems#destroy"
         }
       ]
+    },
+    {
+      "path": "/inventory_items/in_city/{city_id}.json",
+      "operations": [
+        {
+          "summary": "Finds items in a given city",
+          "parameters": [
+            {
+              "paramType": "path",
+              "name": "city_id",
+              "type": "integer",
+              "description": "city ID in which to look for items",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 304,
+              "message": "The content has not changed in relation to the request ETag / If-Modified-Since"
+            }
+          ],
+          "method": "get",
+          "nickname": "Cities#in_city"
+        }
+      ]
     }
   ],
   "resourcePath": "/inventory_items",
