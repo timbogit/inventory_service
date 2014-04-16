@@ -10,6 +10,11 @@ class InventoryItem < ActiveRecord::Base
     @tags
   end
 
+  def city(refresh = false)
+    @cities = Array(RemoteCity.find_by_city_ids([city_id])) if refresh || !@cities
+    @cities.first
+  end
+
   private
 
   def destroy_remote_tags

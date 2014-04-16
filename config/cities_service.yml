@@ -1,0 +1,16 @@
+development:
+  host: cities-service-development.herokuapp.com
+  port: 80
+  api_version: 1
+  max_concurrency: 4
+
+test:
+  host: cities-service-development.herokuapp.com
+  port: 80
+  api_version: 1
+
+production:
+  host: cities-service-development.herokuapp.com
+  port: 80
+  api_version: 1
+  max_concurrency: 10
