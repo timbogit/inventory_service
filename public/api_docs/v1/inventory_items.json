@@ -195,7 +195,38 @@
             }
           ],
           "method": "get",
-          "nickname": "Cities#in_city"
+          "nickname": "InventoryItems#in_city"
+        }
+      ]
+    },
+    {
+      "path": "/inventory_items/near_city/{city_id}.json",
+      "operations": [
+        {
+          "summary": "Finds items in a given city",
+          "parameters": [
+            {
+              "paramType": "path",
+              "name": "city_id",
+              "type": "integer",
+              "description": "city ID in which to look for items",
+              "required": true
+            },{
+              "paramType": "query",
+              "name": "within",
+              "type": "integer",
+              "description": "Number of miles around the reference city to look for inventory items; 15 miles is the default",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 304,
+              "message": "The content has not changed in relation to the request ETag / If-Modified-Since"
+            }
+          ],
+          "method": "get",
+          "nickname": "InventoryItems#near_city"
         }
       ]
     }

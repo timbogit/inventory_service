@@ -82,6 +82,24 @@ class InventoryItemsController < ApplicationController
     expires_in caching_time, public: true
   end
 
+  # Find inventory items in a given city ID, or near that city within a given number of miles (default: 15 miles)
+  # Example:
+  #  `curl -v -H "Content-type: application/json" 'http://localhost:3000/api/v1/inventory_items/near_city/1.json?within=20'`
+  def near_city
+    nearby_city_ids = RemoteCity.find_nearby_city_id(params[:city_id], params.fetch(:within, 15)).map(&:id)
+    nearby_city_ids << params[:city_id].to_i if params[:city_id].to_i
+    Rails.logger.info "nearby city IDs (including the requested city itself): #{nearby_city_ids}"
+    city_items = InventoryItem.where( city_id: nearby_city_ids )
+    return json_response([]) if city_items.blank?
+    newest_item = city_items.sort_by(&:updated_at).last
+    Rails.logger.info "newest_item is #{newest_item.inspect}"
+    render_if_stale(city_items, last_modified: newest_item.updated_at.utc, etag: newest_item) do |item_presenters|
+      item_presenters.map(&:hash)
+    end
+    # explicitly setting the Cache-Control response header to public and max-age, to make the response cachable by proxy caches
+    expires_in caching_time, public: true
+  end
+
   private
 
   def find_item
