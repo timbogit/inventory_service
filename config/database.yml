@@ -4,7 +4,6 @@ development:
   database: inventory_service_development
   pool: 5
   password:
-  host: localhost
 
 test:
   adapter: postgresql
