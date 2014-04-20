@@ -97,7 +97,6 @@ class RemoteModel
 
     def hydra
       @hydra ||= begin
-        Typhoeus::Config.memoize = true
         Typhoeus::Hydra.new(max_concurrency: max_concurrency)
       end
     end
