@@ -4,7 +4,7 @@ class InventoryItemsController < ApplicationController
   # Show a single inventory_item
   # List all inventory_items
   # Example:
-  #  ` curl -v -H "Content-type: application/json" 'http://localhost:3000/api/v1/inventory_items/1.json'
+  #  ` curl -v -H "Content-type: application/json" 'http://localhost:3000/api/v1/inventory_items/1.json?representation=full'
   def show
     Rails.logger.debug "Inventory Item with ID #{@item.id} is #{@item.inspect}"
 
@@ -17,9 +17,10 @@ class InventoryItemsController < ApplicationController
 
   # List all inventory_items
   # Example:
-  #  ` curl -v -H "Content-type: application/json" 'http://localhost:3000/api/v1/inventory_items.json'
+  #  ` curl -v -H "Content-type: application/json" 'http://localhost:3000/api/v1/inventory_items.json?representation=full&limit=15&offset=30'
   def index
-    all_items = InventoryItem.all
+    lim, off = sanitized_limit_and_offset
+    all_items = InventoryItem.all.limit(lim).offset(off)
     return json_response([]) unless newest_item = all_items.sort_by(&:updated_at).last
     Rails.logger.info "newest_item is #{newest_item.inspect}"
     render_if_stale(all_items, last_modified: newest_item.updated_at.utc, etag: newest_item) do |item_presenters|
@@ -70,9 +71,10 @@ class InventoryItemsController < ApplicationController
 
   # Find inventory items filtered by a given city ID
   # Example:
-  #  `curl -v -H "Content-type: application/json" 'http://localhost:3000/api/v1/inventory_items/in_city/1.json'`
+  #  `curl -v -H "Content-type: application/json" 'http://localhost:3000/api/v1/inventory_items/in_city/1.json?representation=full&limit=15&offset=30'`
   def in_city
-    return json_response([]) if (city_items = InventoryItem.where(params.slice(:city_id))).blank?
+    lim, off = sanitized_limit_and_offset
+    return json_response([]) if (city_items = InventoryItem.where(params.slice(:city_id)).limit(lim).offset(off)).blank?
     newest_item = city_items.sort_by(&:updated_at).last
     Rails.logger.info "newest_item is #{newest_item.inspect}"
     render_if_stale(city_items, last_modified: newest_item.updated_at.utc, etag: newest_item) do |item_presenters|
@@ -84,12 +86,13 @@ class InventoryItemsController < ApplicationController
 
   # Find inventory items in a given city ID, or near that city within a given number of miles (default: 15 miles)
   # Example:
-  #  `curl -v -H "Content-type: application/json" 'http://localhost:3000/api/v1/inventory_items/near_city/1.json?within=20'`
+  #  `curl -v -H "Content-type: application/json" 'http://localhost:3000/api/v1/inventory_items/near_city/1.json?within=20&representation=full&limit=15&offset=30'`
   def near_city
+    lim, off = sanitized_limit_and_offset
     nearby_city_ids = RemoteCity.find_nearby_city_id(params[:city_id], params.fetch(:within, 15)).map(&:id)
     nearby_city_ids << params[:city_id].to_i if params[:city_id].to_i
     Rails.logger.info "nearby city IDs (including the requested city itself): #{nearby_city_ids}"
-    city_items = InventoryItem.where( city_id: nearby_city_ids )
+    city_items = InventoryItem.where( city_id: nearby_city_ids ).limit(lim).offset(off)
     return json_response([]) if city_items.blank?
     newest_item = city_items.sort_by(&:updated_at).last
     Rails.logger.info "newest_item is #{newest_item.inspect}"

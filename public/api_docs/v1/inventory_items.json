@@ -15,6 +15,20 @@
               "type": "string",
               "description": "the requested representation for the inventory items returned (e.g., 'full'); defaults to a default smaller representation",
               "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "limit",
+              "type": "integer",
+              "description": "limit the number of items returned to `limit`; defaults to not enforcing a limit",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "offset",
+              "type": "integer",
+              "description": "offset the first item to be returned by `offset`; defaults to 0",
+              "required": false
             }
           ],
           "responseMessages": [
@@ -209,6 +223,20 @@
               "type": "string",
               "description": "the requested representation for the inventory items returned (e.g., 'full'); defaults to a default smaller representation",
               "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "limit",
+              "type": "integer",
+              "description": "limit the number of items returned to `limit`; defaults to not enforcing a limit",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "offset",
+              "type": "integer",
+              "description": "offset the first item to be returned by `offset`; defaults to 0",
+              "required": false
             }
           ],
           "responseMessages": [
@@ -247,6 +275,20 @@
               "name": "representation",
               "type": "string",
               "description": "the requested representation for the inventory items returned (e.g., 'full'); defaults to a default smaller representation",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "limit",
+              "type": "integer",
+              "description": "limit the number of items returned to `limit`; defaults to not enforcing a limit",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "offset",
+              "type": "integer",
+              "description": "offset the first item to be returned by `offset`; defaults to 0",
               "required": false
             }
           ],

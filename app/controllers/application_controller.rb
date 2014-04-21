@@ -19,6 +19,12 @@ class ApplicationController < ActionController::Base
       expires_in max_age, public: true
     end
 
+    def sanitized_limit_and_offset
+      offset = params[:offset].to_i.abs
+      limit  = (params[:limit].to_i == 0) ? nil : params[:limit].to_i.abs
+      [limit, offset]
+    end
+
     # Renders the results of a block passed in as JSON, but only if the
     # given 'staleness' critera are met. A presenter class is determined
     # based on the entity passed in, which gets passed back to the passed-in block.
