@@ -27,6 +27,8 @@ class ApplicationController < ActionController::Base
     #                      for finding the presenter class
     # - presenter_for_entity: to be able to create special presenters that deviate
     #                         from the standard instantiation logic for the presenter class
+    # - verified_representation: to be able to whitelist representations for the
+    #                            entities represented
     #
     # entities        - the `entity`, or array of entities, for which to create the presenter
     # stale_criteria  - the argument to pass on to Rails' `stale?` helper to determine freshness
@@ -42,7 +44,11 @@ class ApplicationController < ActionController::Base
     end
 
     def find_presenter(entities, version)
-      PresenterFinder.new(version, presentable_class(entities)).presenter_class
+      PresenterFinder.new(version, presentable_class(entities), verified_representation(params[:representation])).presenter_class
+    end
+
+    def verified_representation(representation)
+      representation
     end
 
     def presentable_class(entities)

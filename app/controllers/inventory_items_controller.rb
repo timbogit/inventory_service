@@ -102,6 +102,11 @@ class InventoryItemsController < ApplicationController
 
   private
 
+  def verified_representation(representation)
+    return nil if representation.nil?
+    representation if InventoryItemPresenter::ITEM_REPRESENTATIONS.include?(representation.to_sym)
+  end
+
   def find_item
     not_found_with_max_age(caching_time) and return unless (@item = InventoryItem.find_by(params.slice(:id)))
   end
