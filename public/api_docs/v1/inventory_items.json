@@ -8,6 +8,15 @@
       "operations": [
         {
           "summary": "Fetches all inventory items",
+          "parameters": [
+            {
+              "paramType": "query",
+              "name": "representation",
+              "type": "string",
+              "description": "the requested representation for the inventory items returned (e.g., 'full'); defaults to a default smaller representation",
+              "required": false
+            }
+          ],
           "responseMessages": [
             {
               "code": 304,
@@ -56,6 +65,13 @@
               "type": "integer",
               "description": "Inventory Item Id",
               "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "representation",
+              "type": "string",
+              "description": "the requested representation for the inventory item returned (e.g., 'full'); defaults to a default smaller representation",
+              "required": false
             }
           ],
           "responseMessages": [
@@ -186,6 +202,13 @@
               "type": "integer",
               "description": "city ID in which to look for items",
               "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "representation",
+              "type": "string",
+              "description": "the requested representation for the inventory items returned (e.g., 'full'); defaults to a default smaller representation",
+              "required": false
             }
           ],
           "responseMessages": [
@@ -211,11 +234,19 @@
               "type": "integer",
               "description": "city ID in which to look for items",
               "required": true
-            },{
+            },
+            {
               "paramType": "query",
               "name": "within",
               "type": "integer",
               "description": "Number of miles around the reference city to look for inventory items; 15 miles is the default",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "representation",
+              "type": "string",
+              "description": "the requested representation for the inventory items returned (e.g., 'full'); defaults to a default smaller representation",
               "required": false
             }
           ],
