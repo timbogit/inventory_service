@@ -1,0 +1,33 @@
+# Setting up your workstation
+
+## Prerequisites
+* git
+* github.com account
+* Ruby 2.1.1, Rails 4.0.4
+* bundler
+* PostgreSQL (preferred, other DBs will do with minor changes)
+* a heroku.com account and the [Heroku Toolbelt](https://toolbelt.heroku.com) installed (optional, but you'll have way more fun)
+
+## Code for this workshop
+* `git clone git@github.com:timbogit/inventory_service.git`
+* `git clone git@github.com:timbogit/tags_service.git`
+* `git clone git@github.com:timbogit/cities_service.git`
+* `git clone git@github.com:timbogit/deals.git`
+
+## Heroku setup (optional, but recommended)
+* visit [Heroku](https://www.heroku.com/home) and sign up for a free developer account
+* we are loosely following the ["Getting Started with Rails 4.x on Heroku"](https://devcenter.heroku.com/articles/getting-started-with-rails4) guide:
+	* `$ heroku login`
+	* in each of the `..._service` local git repos, do:
+		* `$ heroku apps:create <my_unique_heroku_app_name>` 
+		* `$ heroku git:remote -a <my_unique_heroku_app_name> -r development`
+		* `$ git push development master`
+		* `$ heroku run rake db:migrate`
+		* `$ heroku run rake db:seed`
+		* `$ heroku  ps:scale web=1`
+	* visit your app, via a browser, or maybe via `$ heroku open`
+		
+
+
+
+
