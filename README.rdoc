@@ -19,7 +19,7 @@ workshop.
 
 * Database initialization
   `bundle exec rake db:migrate`
-  `bundle exec rake db:fixtures:load`
+  `bundle exec rake db:fixtures:seed`
 
 * How to run the test suite
 
