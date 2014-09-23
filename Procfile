@@ -1,1 +1,1 @@
-inventory_service: rails s -p10003
+cities_service: rails s -p10002
