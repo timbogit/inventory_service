@@ -13,12 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20140416053506) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "inventory_items", force: true do |t|
     t.string   "title"
-    t.decimal  "price"
+    t.decimal  "price",      precision: 10, scale: 0
     t.integer  "city_id"
     t.datetime "created_at"
     t.datetime "updated_at"

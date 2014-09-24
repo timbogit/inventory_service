@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 # Core
 gem 'rails', '4.0.4'
-gem 'pg'
+gem 'mysql2'
 gem 'protected_attributes'
 
 # App

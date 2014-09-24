@@ -59,10 +59,10 @@ GEM
     mocha (1.0.0)
       metaclass (~> 0.0.1)
     multi_json (1.9.2)
+    mysql2 (0.3.15)
     newrelic_rpm (3.7.3.204)
     oj (2.6.1)
     perftools.rb (2.0.1)
-    pg (0.17.1)
     polyglot (0.3.4)
     protected_attributes (1.0.7)
       activemodel (>= 4.0.1, < 5.0)
@@ -121,10 +121,10 @@ DEPENDENCIES
   hashie
   minitest-rails
   mocha
+  mysql2
   newrelic_rpm
   oj
   perftools.rb
-  pg
   protected_attributes
   rails (= 4.0.4)
   rails_12factor
